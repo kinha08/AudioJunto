@@ -25,8 +25,8 @@ Abra a [release mais recente](https://github.com/kinha08/AudioJunto/releases/lat
 
 | Arquivo | Para que serve |
 | --- | --- |
-| `AudioJunto-Setup-0.1.2.exe` | Instalador com atalho no menu Iniciar, atalho opcional na área de trabalho e desinstalador. |
-| `AudioJunto-0.1.2.exe` | Executável portátil. Coloque em uma pasta com permissão de gravação e execute. |
+| `AudioJunto-Setup-0.1.3.exe` | Instalador com atalho no menu Iniciar, atalho opcional na área de trabalho e desinstalador. |
+| `AudioJunto-0.1.3.exe` | Executável portátil. Coloque em uma pasta com permissão de gravação e execute. |
 | `SHA256SUMS.txt` | Checksums para conferir a integridade dos downloads. |
 
 A instalação é feita apenas para o usuário atual. As configurações ficam no arquivo `AudioJunto.ron`, ao lado do executável. Para desinstalar, use **Configurações → Aplicativos → Aplicativos instalados → AudioJunto**.

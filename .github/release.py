@@ -2,6 +2,7 @@
 import json
 import os
 import pathlib
+import re
 import urllib.error
 import urllib.request
 
@@ -30,14 +31,15 @@ except urllib.error.HTTPError as error:
 if release and not release["draft"]:
     print(f"Release {tag} is already published; existing assets were preserved.")
 else:
+    changelog = pathlib.Path("CHANGELOG.md").read_text(encoding="utf-8")
+    section = re.search(rf"(?ms)^## {re.escape(version)}\s*\n(.*?)(?=^## |\Z)", changelog)
+    changes = section.group(1).strip() if section else "See CHANGELOG.md for details."
     notes = f"""## AudioJunto {version}
 
 Mirror Windows audio to two or more devices with a simple interface and system tray controls.
 
 ### Changes
-- Fix tray commands while the window is hidden.
-- Restore minimized windows when opening from the tray.
-- Update tray text only when audio state changes; keep single-instance startup.
+{changes}
 
 ### Downloads
 - **AudioJunto-Setup-{version}.exe**: per-user installer (recommended).
@@ -47,7 +49,7 @@ Mirror Windows audio to two or more devices with a simple interface and system t
 Windows 10/11 x64. Interface and installer in Brazilian Portuguese. No virtual audio driver required.
 
 ### Português
-Correção dos comandos da bandeja com a janela escondida e restauração da janela minimizada. Mantém a instância única.
+Consulte o CHANGELOG para os detalhes desta versão.
 Encerre a versão anterior antes de atualizar. Se ela estiver presa na bandeja, encerre o processo AudioJunto pelo Gerenciador de Tarefas.
 
 Build: `{commit}`. Automated tests pass; listening and hardware-specific synchronization require testing on your devices.

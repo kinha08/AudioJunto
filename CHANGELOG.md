@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+- Use the AudioJunto icon in the native title bar.
+- Replace the unsupported header glyph with the same icon rendered as an image.
+- Share the icon pixels between the title bar, header, and system tray.
+
 ## 0.1.2
 
 - Wake the Windows event loop directly when a tray command arrives, including while the main window is hidden.

@@ -37,9 +37,10 @@ struct App {
     actions: mpsc::Receiver<Action>,
     quitting: bool,
     scan: Option<mpsc::Receiver<Result<audio::Devices, String>>>,
+    logo: egui::TextureHandle,
 }
 
-fn icon() -> Icon {
+fn app_icon() -> egui::IconData {
     let mut rgba = vec![0u8; 32 * 32 * 4];
     for y in 0..32usize {
         for x in 0..32usize {
@@ -56,7 +57,16 @@ fn icon() -> Icon {
             }
         }
     }
-    Icon::from_rgba(rgba, 32, 32).expect("Ícone interno válido")
+    egui::IconData {
+        rgba,
+        width: 32,
+        height: 32,
+    }
+}
+
+fn icon() -> Icon {
+    let image = app_icon();
+    Icon::from_rgba(image.rgba, image.width, image.height).expect("Ícone interno válido")
 }
 
 impl App {
@@ -71,12 +81,22 @@ impl App {
         style.spacing.item_spacing = Vec2::new(12.0, 12.0);
         style.spacing.button_padding = Vec2::new(16.0, 10.0);
         cc.egui_ctx.set_style(style);
+        let image = app_icon();
+        let logo = cc.egui_ctx.load_texture(
+            "audiojunto-logo",
+            egui::ColorImage::from_rgba_unmultiplied(
+                [image.width as usize, image.height as usize],
+                &image.rgba,
+            ),
+            egui::TextureOptions::LINEAR,
+        );
         let settings = cc
             .storage
             .and_then(|s| eframe::get_value(s, "devices"))
             .unwrap_or_default();
         let (tx, actions) = mpsc::channel();
         let mut app = Self {
+            logo,
             _instance: instance,
             settings,
             devices: Vec::new(),
@@ -264,7 +284,7 @@ impl eframe::App for App {
         egui::CentralPanel::default().show(ctx, |ui| {
             egui::Frame::new().inner_margin(24.0).show(ui, |ui| {
                 ui.horizontal(|ui| {
-                    ui.label(RichText::new("≋").size(38.0).color(ACCENT));
+                    ui.add(egui::Image::new(&self.logo).fit_to_exact_size(Vec2::splat(40.0)));
                     ui.vertical(|ui| {
                         ui.label(RichText::new("AudioJunto").size(28.0).strong());
                         ui.label(
@@ -418,6 +438,7 @@ fn main() -> eframe::Result {
             .map(|p| p.with_file_name("AudioJunto.ron")),
         viewport: egui::ViewportBuilder::default()
             .with_title("AudioJunto")
+            .with_icon(app_icon())
             .with_inner_size([580.0, 680.0])
             .with_min_inner_size([520.0, 620.0]),
         ..Default::default()

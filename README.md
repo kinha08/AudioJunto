@@ -25,8 +25,8 @@ Open the [latest release](https://github.com/kinha08/AudioJunto/releases/latest)
 
 | File | Purpose |
 | --- | --- |
-| `AudioJunto-Setup-0.1.2.exe` | Installer with a Start menu shortcut, optional desktop shortcut, and uninstaller. |
-| `AudioJunto-0.1.2.exe` | Portable executable. Place it in a folder you can write to and run it. |
+| `AudioJunto-Setup-0.1.3.exe` | Installer with a Start menu shortcut, optional desktop shortcut, and uninstaller. |
+| `AudioJunto-0.1.3.exe` | Portable executable. Place it in a folder you can write to and run it. |
 | `SHA256SUMS.txt` | Checksums for verifying the downloads. |
 
 The installer installs for the current user. Settings are stored in `AudioJunto.ron` beside the application executable. To uninstall, use **Settings → Apps → Installed apps → AudioJunto**.
