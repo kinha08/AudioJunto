@@ -6,7 +6,7 @@
 
 AudioJunto is a lightweight Rust application for **Windows 10 and 11 (64-bit)** that mirrors the sound playing on one output device to one or more additional devices. Listen together using two headphones, or share audio across headphones and speakers, with a simple interface and system tray controls.
 
-The source version also mixes multiple microphones in real time, with optional Windows playback in the same mix.
+AudioJunto also mixes multiple microphones in real time, with optional Windows playback in the same mix.
 
 ## Features
 
@@ -27,8 +27,8 @@ Open the [latest release](https://github.com/kinha08/AudioJunto/releases/latest)
 
 | File | Purpose |
 | --- | --- |
-| `AudioJunto-Setup-0.1.3.exe` | Installer with a Start menu shortcut, optional desktop shortcut, and uninstaller. |
-| `AudioJunto-0.1.3.exe` | Portable executable. Place it in a folder you can write to and run it. |
+| `AudioJunto-Setup-0.2.0.exe` | Installer with a Start menu shortcut, optional desktop shortcut, and uninstaller. |
+| `AudioJunto-0.2.0.exe` | Portable executable. Place it in a folder you can write to and run it. |
 | `SHA256SUMS.txt` | Checksums for verifying the downloads. |
 
 The installer installs for the current user. Settings are stored in `AudioJunto.ron` beside the application executable. To uninstall, use **Settings → Apps → Installed apps → AudioJunto**.

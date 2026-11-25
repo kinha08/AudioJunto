@@ -1,4 +1,4 @@
-#define AppVersion "0.1.3"
+#define AppVersion "0.2.0"
 
 [Setup]
 AppId={{529C9BD8-367D-4B6A-A815-105BDB0F24DA}
@@ -23,7 +23,7 @@ WizardStyle=modern
 CloseApplications=yes
 RestartApplications=no
 UninstallDisplayName=AudioJunto
-VersionInfoVersion=0.1.3.0
+VersionInfoVersion=0.2.0.0
 VersionInfoDescription=Instalador do AudioJunto
 VersionInfoProductName=AudioJunto
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+- Mix multiple microphones in real time, with optional Windows playback.
+- Limit combined peaks when people speak at the same time.
+- Choose microphone inputs and mix outputs in the app.
+
 ## 0.1.3
 
 - Use the AudioJunto icon in the native title bar.

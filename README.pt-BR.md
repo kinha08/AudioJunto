@@ -6,7 +6,7 @@
 
 O AudioJunto é um aplicativo leve em Rust para **Windows 10 e 11 de 64 bits** que copia o áudio de uma saída para um ou mais dispositivos adicionais. Ouça junto usando dois fones ou compartilhe o som entre fones e caixas de som, com uma interface simples e controles na bandeja do sistema.
 
-A versão do código-fonte também mistura vários microfones em tempo real e permite incluir o áudio do Windows na mesma mixagem.
+O AudioJunto também mistura vários microfones em tempo real e permite incluir o áudio do Windows na mesma mixagem.
 
 ## Recursos
 
@@ -27,8 +27,8 @@ Abra a [release mais recente](https://github.com/kinha08/AudioJunto/releases/lat
 
 | Arquivo | Para que serve |
 | --- | --- |
-| `AudioJunto-Setup-0.1.3.exe` | Instalador com atalho no menu Iniciar, atalho opcional na área de trabalho e desinstalador. |
-| `AudioJunto-0.1.3.exe` | Executável portátil. Coloque em uma pasta com permissão de gravação e execute. |
+| `AudioJunto-Setup-0.2.0.exe` | Instalador com atalho no menu Iniciar, atalho opcional na área de trabalho e desinstalador. |
+| `AudioJunto-0.2.0.exe` | Executável portátil. Coloque em uma pasta com permissão de gravação e execute. |
 | `SHA256SUMS.txt` | Checksums para conferir a integridade dos downloads. |
 
 A instalação é feita apenas para o usuário atual. As configurações ficam no arquivo `AudioJunto.ron`, ao lado do executável. Para desinstalar, use **Configurações → Aplicativos → Aplicativos instalados → AudioJunto**.
