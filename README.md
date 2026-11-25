@@ -6,6 +6,8 @@
 
 AudioJunto is a lightweight Rust application for **Windows 10 and 11 (64-bit)** that mirrors the sound playing on one output device to one or more additional devices. Listen together using two headphones, or share audio across headphones and speakers, with a simple interface and system tray controls.
 
+AudioJunto also mixes multiple microphones in real time, with optional Windows playback in the same mix.
+
 ## Features
 
 - Play audio on two or more output devices, including the original output.
@@ -25,8 +27,8 @@ Open the [latest release](https://github.com/kinha08/AudioJunto/releases/latest)
 
 | File | Purpose |
 | --- | --- |
-| `AudioJunto-Setup-0.1.3.exe` | Installer with a Start menu shortcut, optional desktop shortcut, and uninstaller. |
-| `AudioJunto-0.1.3.exe` | Portable executable. Place it in a folder you can write to and run it. |
+| `AudioJunto-Setup-0.2.0.exe` | Installer with a Start menu shortcut, optional desktop shortcut, and uninstaller. |
+| `AudioJunto-0.2.0.exe` | Portable executable. Place it in a folder you can write to and run it. |
 | `SHA256SUMS.txt` | Checksums for verifying the downloads. |
 
 The installer installs for the current user. Settings are stored in `AudioJunto.ron` beside the application executable. To uninstall, use **Settings → Apps → Installed apps → AudioJunto**.
@@ -38,13 +40,23 @@ When upgrading from a version stuck in the tray, end its **AudioJunto** process 
 1. Connect both headphones or your other output devices.
 2. In Windows sound settings, select the first device as your normal output and start playing audio.
 3. Open AudioJunto and select that device under **Origem do áudio** (audio source).
-4. Under **Tocar também em** (also play on), check the additional devices.
+4. Under **Saídas da mixagem** (mix outputs), check the additional devices.
 5. Click **Ativar** (enable). The original device keeps playing while AudioJunto sends copies to the selected outputs.
 6. Click **Desativar** (disable) to stop the copies and keep only the original output.
 
 Disable mirroring before changing devices. Use **Atualizar** (refresh) after connecting a new device. Closing the window hides it in the system tray; double-click the tray icon to reopen it. Right-click the icon to open the window, toggle mirroring, or choose **Sair** (quit).
 
 AudioJunto does not change the Windows default output. Applications routed to a different device are not included in the mirrored sound.
+
+### Mix microphones
+
+1. Connect the microphones and click **Atualizar** (refresh).
+2. Check the devices under **Microfones**. Clear **Duplicar áudio do computador** to send only the voices.
+3. Choose at least one device under **Saídas da mixagem** and click **Ativar**.
+
+Both voices remain in the mix when people speak at the same time. A peak limiter lowers the combined signal when needed. Use headphones to avoid feedback and keep each microphone close to its speaker to reduce bleed.
+
+The mix goes to playback devices. To use it as a single microphone in a call or recording app, select a virtual audio cable as the AudioJunto output and choose the cable's recording endpoint as the input in the other app.
 
 ## Latency and compatibility
 
@@ -56,9 +68,9 @@ If an output fails, AudioJunto stops mirroring and reports the error. If the Win
 
 ## How it works
 
-AudioJunto captures the source device's playback mix through **WASAPI loopback**, then opens additional outputs in shared mode. Audio uses 48 kHz stereo floating-point samples with format conversion handled by Windows. Each output has a bounded queue and adaptive interpolation to compensate for small hardware clock differences.
+AudioJunto captures the source device's playback mix through **WASAPI loopback**, then opens additional outputs in shared mode. Audio uses 48 kHz stereo floating-point samples with format conversion handled by Windows. Each capture and playback pair uses a bounded queue and adaptive interpolation to compensate for small hardware clock differences. Microphones are captured directly in shared mode.
 
-The app does not capture microphones, record audio to files, or transmit audio over the network.
+The app does not record audio to files, or transmit audio over the network.
 
 ## Build from source
 

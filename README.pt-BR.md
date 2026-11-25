@@ -6,6 +6,8 @@
 
 O AudioJunto é um aplicativo leve em Rust para **Windows 10 e 11 de 64 bits** que copia o áudio de uma saída para um ou mais dispositivos adicionais. Ouça junto usando dois fones ou compartilhe o som entre fones e caixas de som, com uma interface simples e controles na bandeja do sistema.
 
+O AudioJunto também mistura vários microfones em tempo real e permite incluir o áudio do Windows na mesma mixagem.
+
 ## Recursos
 
 - Reproduz áudio em dois ou mais dispositivos, contando a saída original.
@@ -25,8 +27,8 @@ Abra a [release mais recente](https://github.com/kinha08/AudioJunto/releases/lat
 
 | Arquivo | Para que serve |
 | --- | --- |
-| `AudioJunto-Setup-0.1.3.exe` | Instalador com atalho no menu Iniciar, atalho opcional na área de trabalho e desinstalador. |
-| `AudioJunto-0.1.3.exe` | Executável portátil. Coloque em uma pasta com permissão de gravação e execute. |
+| `AudioJunto-Setup-0.2.0.exe` | Instalador com atalho no menu Iniciar, atalho opcional na área de trabalho e desinstalador. |
+| `AudioJunto-0.2.0.exe` | Executável portátil. Coloque em uma pasta com permissão de gravação e execute. |
 | `SHA256SUMS.txt` | Checksums para conferir a integridade dos downloads. |
 
 A instalação é feita apenas para o usuário atual. As configurações ficam no arquivo `AudioJunto.ron`, ao lado do executável. Para desinstalar, use **Configurações → Aplicativos → Aplicativos instalados → AudioJunto**.
@@ -38,13 +40,23 @@ Se uma versão antiga estiver presa na bandeja, encerre o processo **AudioJunto*
 1. Conecte os dois fones ou os demais dispositivos de saída.
 2. Nas configurações de som do Windows, escolha o primeiro como saída normal e comece a reproduzir algum áudio.
 3. Abra o AudioJunto e selecione esse dispositivo em **Origem do áudio**.
-4. Em **Tocar também em**, marque as saídas adicionais.
+4. Em **Saídas da mixagem**, marque as saídas adicionais.
 5. Clique em **Ativar**. O dispositivo original continua tocando, enquanto o AudioJunto envia cópias para as saídas selecionadas.
 6. Clique em **Desativar** para interromper as cópias e manter apenas o áudio original.
 
 Desative a duplicação antes de mudar os dispositivos. Use **Atualizar** depois de conectar uma nova saída. Fechar a janela recolhe o aplicativo para a bandeja; dê dois cliques no ícone para reabrir. O menu do botão direito permite abrir a janela, ativar ou desativar a duplicação e **Sair**.
 
 O AudioJunto não altera a saída padrão do Windows. Aplicativos configurados para tocar em outro dispositivo não entram na duplicação.
+
+### Juntar microfones
+
+1. Conecte os microfones e clique em **Atualizar**.
+2. Marque os dispositivos em **Microfones**. Desmarque **Duplicar áudio do computador** se quiser ouvir só as vozes.
+3. Escolha pelo menos um dispositivo em **Saídas da mixagem** e clique em **Ativar**.
+
+Se duas pessoas falarem ao mesmo tempo, as duas vozes entram na mixagem. Um limitador reduz os picos da soma quando necessário. Use fones para evitar microfonia e deixe cada pessoa perto do próprio microfone para reduzir a captação da outra voz.
+
+A mixagem vai para dispositivos de reprodução. Para usá-la como um único microfone em um aplicativo de chamada ou gravação, selecione um cabo de áudio virtual como saída do AudioJunto e escolha a entrada de gravação desse cabo no outro aplicativo.
 
 ## Atraso e compatibilidade
 
@@ -56,9 +68,9 @@ Se uma saída falhar, o aplicativo interrompe a duplicação e informa o erro. S
 
 ## Como funciona
 
-O AudioJunto captura o áudio reproduzido na origem por **WASAPI loopback** e abre os destinos em modo compartilhado. Trabalha com amostras estéreo de ponto flutuante a 48 kHz, com conversão de formato pelo Windows. Cada saída possui uma fila limitada e interpolação adaptativa para compensar pequenas diferenças entre os relógios dos dispositivos.
+O AudioJunto captura o áudio reproduzido na origem por **WASAPI loopback** e abre os destinos em modo compartilhado. Trabalha com amostras estéreo de ponto flutuante a 48 kHz, com conversão de formato pelo Windows. Cada par de captura e reprodução usa uma fila limitada e interpolação adaptativa para compensar pequenas diferenças entre os relógios dos dispositivos. Os microfones são capturados diretamente em modo compartilhado.
 
-O aplicativo não captura microfones, não grava áudio em arquivos e não transmite áudio pela rede.
+O aplicativo não grava áudio em arquivos e não transmite áudio pela rede.
 
 ## Compilar o projeto
 
